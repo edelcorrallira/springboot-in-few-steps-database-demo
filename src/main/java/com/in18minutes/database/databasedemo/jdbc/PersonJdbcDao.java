@@ -1,5 +1,6 @@
 package com.in18minutes.database.databasedemo.jdbc;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,30 @@ public class PersonJdbcDao {
 				new BeanPropertyRowMapper<Person>(Person.class));
 	}
 	
-	//Returns the number of rows deleted
+	/** 
+	 * Returns the number of rows deleted; given these id's should be unique it should
+	 * never delete more than one record.
+	 * @param id Id of record to delete
+	 * @return Number of rows deleted
+	 */
 	public int deleteById(int id) {
 		String DELETE_BY_ID = "delete from person where id=?";
 		return jdbcTemplate.update(DELETE_BY_ID,  new Object[] {id});
+	}
+	
+	public boolean insert(Person person) {
+		String INSERT_PERSON = "insert into person (id, name, location, birth_date)"
+				+" values(?, ?, ?, ?)";
+		return jdbcTemplate.update(INSERT_PERSON, new Object[] {
+				person.getId(),	person.getName(), person.getLocation(), 
+				new Timestamp(person.getBirthDate().getTime())})>=0;
+	}
+	
+	public boolean update (Person person) {
+		String UPDATE_PERSON = "update person set name =?, location =?, birth_date =?"
+				+" where id =?";
+		return jdbcTemplate.update(UPDATE_PERSON, new Object[] {
+				person.getName(), person.getLocation(), 
+				new Timestamp(person.getBirthDate().getTime()), person.getId()})>=0;
 	}
 }
