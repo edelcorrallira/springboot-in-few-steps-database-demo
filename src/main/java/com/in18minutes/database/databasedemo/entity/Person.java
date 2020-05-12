@@ -6,14 +6,18 @@ public class Person {
 	private int id;
 	private String name;
 	private String location;
-	private Date birthdate;
-	
-	public Person(int id, String name, String location, Date birthdate) {
+	private Date birthDate;
+
+	//Since a constructor with arguments has been provided, a no argument constructor must be provided for
+	//the RowMapper (otherwise it throws and exception)
+	public Person() {}
+
+	public Person(int id, String name, String location, Date birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.location = location;
-		this.birthdate = birthdate;
+		this.birthDate = birthDate;
 	}
 
 	public int getId() {
@@ -40,13 +44,18 @@ public class Person {
 		this.location = location;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
-	
-	
+
+	//If we don't provide this, we'll just see the memory addresses of the container objects
+	//also consider using the new line argument for readability.
+	@Override
+	public String toString() {
+		return String.format("\nPerson [id=%s, name=%s, location=%s, birthDate=%s]", id, name, location, birthDate);
+	}	
 }
