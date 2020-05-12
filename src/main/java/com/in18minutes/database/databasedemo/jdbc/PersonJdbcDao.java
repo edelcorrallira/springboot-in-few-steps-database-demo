@@ -14,10 +14,19 @@ public class PersonJdbcDao {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	//select * from person	
 	public List<Person> findAll() {
-		//Since there is a 1 tp 1 mapping of properties and row tables we can use this row mapper
 		return jdbcTemplate.query("select * from person", 
+				new BeanPropertyRowMapper<Person>(Person.class));
+	}
+	
+	public Person findById(int id) {
+		return jdbcTemplate.queryForObject("select * from person where id=?", new Object[] {id}, 
+				new BeanPropertyRowMapper<Person>(Person.class));
+	}
+	
+	public List<Person> findByName(String name) {
+		String SELECT_BY_NAME = "select * from person where name=?";
+		return jdbcTemplate.query(SELECT_BY_NAME,  new Object[] {name},
 				new BeanPropertyRowMapper<Person>(Person.class));
 	}
 }
