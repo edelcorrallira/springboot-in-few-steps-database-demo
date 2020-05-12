@@ -18,7 +18,6 @@ public class PersonJdbcDao {
 	public List<Person> findAll() {
 		//Since there is a 1 tp 1 mapping of properties and row tables we can use this row mapper
 		return jdbcTemplate.query("select * from person", 
-				new BeanPropertyRowMapper(Person.class));
+				new BeanPropertyRowMapper<Person>(Person.class));
 	}
-	
 }
