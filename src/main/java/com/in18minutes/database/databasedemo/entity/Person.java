@@ -2,8 +2,24 @@ package com.in18minutes.database.databasedemo.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+//This defines the bean to class relation below, if the annotation is commented
+//It won't affect since their names match (just a demonstration)
+@Table(name="person")
 public class Person {
+	// Id's must be uniquely identified
+	@Id
+	// Generates unique values for us
+	@GeneratedValue
 	private int id;
+	//Unnecessary since they match, just here for demonstration purposes
+	@Column(name="name")
 	private String name;
 	private String location;
 	private Date birthDate;
@@ -20,6 +36,15 @@ public class Person {
 		this.birthDate = birthDate;
 	}
 
+	//We let Hibernate generate the id for us
+	public Person(String name, String location, Date birthDate) {
+		super();
+		this.name = name;
+		this.location = location;
+		this.birthDate = birthDate;
+	}
+
+	
 	public int getId() {
 		return id;
 	}
