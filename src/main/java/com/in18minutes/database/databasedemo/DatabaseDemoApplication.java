@@ -27,6 +27,8 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 		logger.info("User 10002-> {}", personJdbcDao.findById(10002));
 		logger.info("User James-> {}", personJdbcDao.findByName("James"));
 		logger.info("User Joe -> {}", personJdbcDao.findByName("Joe"));
+		logger.info("Deleting 10001 -> {}", personJdbcDao.deleteById(10001));
+		logger.info("Deleting 10004 -> {}", personJdbcDao.deleteById(10004));
 	}
 
 }

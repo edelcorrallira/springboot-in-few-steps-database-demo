@@ -20,7 +20,8 @@ public class PersonJdbcDao {
 	}
 	
 	public Person findById(int id) {
-		return jdbcTemplate.queryForObject("select * from person where id=?", new Object[] {id}, 
+		String SELECT_BY_ID = "select * from person where id=?";
+		return jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[] {id}, 
 				new BeanPropertyRowMapper<Person>(Person.class));
 	}
 	
@@ -28,5 +29,11 @@ public class PersonJdbcDao {
 		String SELECT_BY_NAME = "select * from person where name=?";
 		return jdbcTemplate.query(SELECT_BY_NAME,  new Object[] {name},
 				new BeanPropertyRowMapper<Person>(Person.class));
+	}
+	
+	//Returns the number of rows deleted
+	public int deleteById(int id) {
+		String DELETE_BY_ID = "delete from person where id=?";
+		return jdbcTemplate.update(DELETE_BY_ID,  new Object[] {id});
 	}
 }
