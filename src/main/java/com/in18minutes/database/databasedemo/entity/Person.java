@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +17,7 @@ public class Person {
 	// Id's must be uniquely identified
 	@Id
 	// Generates unique values for us
-	@GeneratedValue
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	//Unnecessary since they match, just here for demonstration purposes
 	@Column(name="name")
